@@ -1,0 +1,22 @@
+This program will create a max-heap and perform operations on it based on data from a file.
+ 
+Operation: p
+print_on = 0
+
+in main:
+array is NULL
+
+Operation: l
+load array...
+
+in main:
+Array:  size: 5, capacity : 5
+indexes:           0,      1,      2,      3,      4, 
+values:           10,     40,     20,     50,     90, 
+
+Operation: s
+
+in main:
+Array:  size: 5, capacity : 5
+indexes:           0,      1,      2,      3,      4, 
+values:           10,     20,     40,     50,     90, 

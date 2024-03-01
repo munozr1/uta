@@ -1,0 +1,55 @@
+This program will create a max-heap and perform operations on it based on data from a file.
+ 
+Operation: p
+print_on = 1
+
+in main:
+array is NULL
+
+Operation: l
+load array...
+
+in main:
+Array:  size: 10, capacity : 10
+indexes:           0,      1,      2,      3,      4,      5,      6,      7,      8,      9, 
+values:           13,      9,     11,      7,      5,     10,      3,      2,      4,      1, 
+
+Operation: a
+add:           0
+FULL. Resizing...............................
+
+in main:
+Array:  size: 11, capacity : 15
+indexes:           0,      1,      2,      3,      4,      5,      6,      7,      8,      9,     10, 
+values:           13,      9,     11,      7,      5,     10,      3,      2,      4,      1,      0, 
+
+Operation: a
+add:           8
+
+in main:
+Array:  size: 12, capacity : 15
+indexes:           0,      1,      2,      3,      4,      5,      6,      7,      8,      9,     10,     11, 
+values:           13,      9,     11,      7,      5,     10,      3,      2,      4,      1,      0,      8, 
+
+Operation: a
+add:          11
+swim_up: idx = 12
+swim_up: idx = 6
+swim_up: idx = 3
+
+in main:
+Array:  size: 13, capacity : 15
+indexes:           0,      1,      2,      3,      4,      5,      6,      7,      8,      9,     10,     11,     12, 
+values:           13,     11,     11,      9,      5,     10,      7,      2,      4,      1,      0,      8,      3, 
+
+Operation: a
+add:          30
+swim_up: idx = 13
+swim_up: idx = 6
+swim_up: idx = 3
+swim_up: idx = 1
+
+in main:
+Array:  size: 14, capacity : 15
+indexes:           0,      1,      2,      3,      4,      5,      6,      7,      8,      9,     10,     11,     12,     13, 
+values:           30,     13,     11,     11,      5,     10,      9,      2,      4,      1,      0,      8,      3,      7, 

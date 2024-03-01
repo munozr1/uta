@@ -1,0 +1,90 @@
+This program will create a max-heap and perform operations on it based on data from a file.
+ 
+Operation: p
+print_on = 1
+
+in main:
+array is NULL
+
+Operation: l
+load array...
+
+in main:
+Array:  size: 2, capacity : 2
+indexes:           0,      1, 
+values:           13,      9, 
+
+Operation: a
+add:          11
+FULL. Resizing...............................
+swim_up: idx = 2
+
+in main:
+Array:  size: 3, capacity : 4
+indexes:           0,      1,      2, 
+values:           13,      9,     11, 
+
+Operation: a
+add:           7
+swim_up: idx = 3
+
+in main:
+Array:  size: 4, capacity : 4
+indexes:           0,      1,      2,      3, 
+values:           13,      9,     11,      7, 
+
+Operation: a
+add:           5
+FULL. Resizing...............................
+swim_up: idx = 4
+
+in main:
+Array:  size: 5, capacity : 8
+indexes:           0,      1,      2,      3,      4, 
+values:           13,      9,     11,      7,      5, 
+
+Operation: a
+add:          10
+swim_up: idx = 5
+
+in main:
+Array:  size: 6, capacity : 8
+indexes:           0,      1,      2,      3,      4,      5, 
+values:           13,      9,     11,      7,      5,     10, 
+
+Operation: a
+add:           3
+swim_up: idx = 6
+
+in main:
+Array:  size: 7, capacity : 8
+indexes:           0,      1,      2,      3,      4,      5,      6, 
+values:           13,      9,     11,      7,      5,     10,      3, 
+
+Operation: a
+add:           2
+swim_up: idx = 7
+
+in main:
+Array:  size: 8, capacity : 8
+indexes:           0,      1,      2,      3,      4,      5,      6,      7, 
+values:           13,      9,     11,      7,      5,     10,      3,      2, 
+
+Operation: a
+add:           4
+FULL. Resizing...............................
+swim_up: idx = 8
+
+in main:
+Array:  size: 9, capacity : 16
+indexes:           0,      1,      2,      3,      4,      5,      6,      7,      8, 
+values:           13,      9,     11,      7,      5,     10,      3,      2,      4, 
+
+Operation: a
+add:           1
+swim_up: idx = 9
+
+in main:
+Array:  size: 10, capacity : 16
+indexes:           0,      1,      2,      3,      4,      5,      6,      7,      8,      9, 
+values:           13,      9,     11,      7,      5,     10,      3,      2,      4,      1, 

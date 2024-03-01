@@ -1,0 +1,133 @@
+Rodrigo Muñoz
+ID: 1001847694
+
+
+1)
+A)
+  select "Name" from STUDENT where Class=4 AND Major="CS";
+
+B)
+  select Course_name from COURSE
+  where Instructor="King"
+  AND "Year" between 07 AND 08;
+
+
+C)
+  SELECT SECTION.Course_number, SECTION.Semester, SECTION.Year, COUNT(GRADE_REPORT.Student_number) AS NumberOfStudents
+  FROM SECTION, GRADE_REPORT
+  WHERE SECTION.Section_identifier = GRADE_REPORT.Section_identifier
+  AND SECTION.Instructor = 'King'
+  GROUP BY SECTION.Course_number, SECTION.Semester, SECTION.Year;
+
+D)
+  SELECT Student.Name, COURSE.Course_name, COURSE.Course_number, COURSE.Credit_hours, SECTION.Semester, SECTION.Year, GRADE_REPORT.Grade
+  FROM Student, COURSE, SECTION, GRADE_REPORT
+  WHERE Student.Student_number = GRADE_REPORT.Student_number
+  AND GRADE_REPORT.Section_identifier = SECTION.Section_identifier
+  AND SECTION.Course_number = COURSE.Course_number
+  AND Student.Major = 'CS'
+  AND Student.Class = 4;
+
+E)
+  SELECT Student.Name, Student.Major
+  FROM Student
+  WHERE NOT EXISTS (
+      SELECT *
+      FROM GRADE_REPORT, SECTION
+      WHERE Student.Student_number = GRADE_REPORT.Student_number
+      AND GRADE_REPORT.Section_identifier = SECTION.Section_identifier
+      AND GRADE_REPORT.Grade <> 'A'
+  );
+
+F)
+  SELECT Student.Name, Student.Major
+  FROM Student
+  WHERE NOT EXISTS (
+      SELECT *
+      FROM GRADE_REPORT, SECTION
+      WHERE Student.Student_number = GRADE_REPORT.Student_number
+      AND GRADE_REPORT.Section_identifier = SECTION.Section_identifier
+      AND GRADE_REPORT.Grade = 'A'
+  );
+
+2)
+
+A)
+  SELECT Dname, COUNT(EMPLOYEE.Ssn) AS NumberOfEmployees
+  FROM DEPARTMENT, EMPLOYEE
+  WHERE DEPARTMENT.Dnumber = EMPLOYEE.Dno
+  GROUP BY DEPARTMENT.Dname
+  HAVING AVG(EMPLOYEE.Salary) > 30000;
+
+B)
+  SELECT Dname, COUNT(EMPLOYEE.Ssn) AS NumberOfMaleEmployees
+  FROM DEPARTMENT, EMPLOYEE
+  WHERE DEPARTMENT.Dnumber = EMPLOYEE.Dno AND EMPLOYEE.Sex = 'M' AND EMPLOYEE.Salary > 30000
+  GROUP BY DEPARTMENT.Dname;
+
+C)
+  SELECT EMPLOYEE.Fname, EMPLOYEE.Minit, EMPLOYEE.Lname
+  FROM EMPLOYEE, DEPARTMENT
+  WHERE EMPLOYEE.Dno = DEPARTMENT.Dnumber AND DEPARTMENT.Dnumber IN (
+    SELECT Dno
+    FROM EMPLOYEE
+    WHERE Salary = (
+      SELECT MAX(Salary)
+      FROM EMPLOYEE
+    )
+  );
+
+D)
+  SELECT E.Fname, E.Minit, E.Lname
+  FROM EMPLOYEE E, EMPLOYEE S, EMPLOYEE SS
+  WHERE E.Supper_Ssn = S.Ssn AND S.Supper_Ssn = SS.Ssn AND SS.Ssn = '888665555';
+
+E)
+  SELECT Fname, Minit, Lname
+  FROM EMPLOYEE
+  WHERE Salary >= (
+    SELECT MIN(Salary) + 10000
+    FROM EMPLOYEE
+  );
+
+F)
+  SELECT DEPARTMENT.Dname, AVG(EMPLOYEE.Salary) AS AverageSalary
+  FROM DEPARTMENT, EMPLOYEE
+  WHERE DEPARTMENT.Dnumber = EMPLOYEE.Dno
+  GROUP BY DEPARTMENT.Dname;
+
+
+
+4)
+	•	SELECT	*	FROM	DEPT_SUMMARY;
+
+	This query is valid for the view 
+	Output:
+		D  C  TOTAL_S  AVERAGE_S
+		-  -  -------  ---------
+		1  1  55000    55000.0  
+		4  3  93000    31000.0  
+		5  4  133000   33250.0  
+
+
+	•	SELECT D, C	FROM DEPT_SUMMARY	WHERE TOTAL_S > 100000;
+
+	This is a valid query
+	Output: 
+		D  C
+		-  -
+		5  4  
+
+	•	SELECT  D, AVG_S	FROM  DEPT_SUMMARY	 WHERE  C > (SELECT C FROM DEPT_SUMMARY WHERE D = 4);
+	Not a valid query because AVG_S is not a column. To fix this err change AVG_S -> AVERAGE_S. Then the output would look like:
+		D  AVERAGE_S
+		-  ---------
+		5  33250.0 
+
+	•	UPDATE DEPT_SUMMARY		set  D=3		WHERE  D= 4;
+  Not a valid query because you cannot update records using a view.
+
+	•	DELETE FROM DEPT_SUMMARY	WHERE C > 4;
+
+	Not a valid query because you cannot delete records using a view.
+

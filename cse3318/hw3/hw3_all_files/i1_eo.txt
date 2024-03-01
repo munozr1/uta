@@ -1,0 +1,68 @@
+This program will create a max-heap and perform operations on it based on data from a file.
+ 
+Operation: p
+print_on = 1
+
+in main:
+array is NULL
+
+Operation: l
+load array...
+
+in main:
+Array:  size: 10, capacity : 10
+indexes:           0,      1,      2,      3,      4,      5,      6,      7,      8,      9, 
+values:           13,      9,     11,      7,      5,     10,      3,      2,      4,      1, 
+
+Operation: i
+increase and swim up: item at index   9 becomes      0
+Array:  size: 10, capacity : 10
+indexes:           0,      1,      2,      3,      4,      5,      6,      7,      8,      9, 
+values:           13,      9,     11,      7,      5,     10,      3,      2,      4,      0, 
+swim_up: idx = 9
+
+in main:
+Array:  size: 10, capacity : 10
+indexes:           0,      1,      2,      3,      4,      5,      6,      7,      8,      9, 
+values:           13,      9,     11,      7,      5,     10,      3,      2,      4,      0, 
+
+Operation: i
+increase and swim up: item at index   9 becomes      8
+Array:  size: 10, capacity : 10
+indexes:           0,      1,      2,      3,      4,      5,      6,      7,      8,      9, 
+values:           13,      9,     11,      7,      5,     10,      3,      2,      4,      8, 
+swim_up: idx = 9
+swim_up: idx = 4
+
+in main:
+Array:  size: 10, capacity : 10
+indexes:           0,      1,      2,      3,      4,      5,      6,      7,      8,      9, 
+values:           13,      9,     11,      7,      8,     10,      3,      2,      4,      5, 
+
+Operation: i
+increase and swim up: item at index   8 becomes     30
+Array:  size: 10, capacity : 10
+indexes:           0,      1,      2,      3,      4,      5,      6,      7,      8,      9, 
+values:           13,      9,     11,      7,      8,     10,      3,      2,     30,      5, 
+swim_up: idx = 8
+swim_up: idx = 3
+swim_up: idx = 1
+swim_up: idx = 0
+
+in main:
+Array:  size: 10, capacity : 10
+indexes:           0,      1,      2,      3,      4,      5,      6,      7,      8,      9, 
+values:           30,     13,     11,      9,      8,     10,      3,      2,      7,      5, 
+
+Operation: i
+increase and swim up: item at index   5 becomes     18
+Array:  size: 10, capacity : 10
+indexes:           0,      1,      2,      3,      4,      5,      6,      7,      8,      9, 
+values:           30,     13,     11,      9,      8,     18,      3,      2,      7,      5, 
+swim_up: idx = 5
+swim_up: idx = 2
+
+in main:
+Array:  size: 10, capacity : 10
+indexes:           0,      1,      2,      3,      4,      5,      6,      7,      8,      9, 
+values:           30,     13,     18,      9,      8,     11,      3,      2,      7,      5, 

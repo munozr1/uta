@@ -1,0 +1,123 @@
+This program will create a max-heap and perform operations on it based on data from a file.
+ 
+Operation: p
+print_on = 1
+
+in main:
+array is NULL
+
+Operation: l
+load array...
+
+in main:
+Array:  size: 12, capacity : 12
+indexes:           0,      1,      2,      3,      4,      5,      6,      7,      8,      9,     10,     11, 
+values:            4,      5,      4,      7,      8,      1,      2,      6,      9,      1,      3,      2, 
+
+Operation: s
+in array2heap, array BEFORE it gets turned into a heap :
+Array:  size: 12, capacity : 12
+indexes:           0,      1,      2,      3,      4,      5,      6,      7,      8,      9,     10,     11, 
+values:            4,      5,      4,      7,      8,      1,      2,      6,      9,      1,      3,      2, 
+sink_down: idx = 5
+sink_down: idx = 11
+in array2heap, array after sink_down at index 5.
+Array:  size: 12, capacity : 12
+indexes:           0,      1,      2,      3,      4,      5,      6,      7,      8,      9,     10,     11, 
+values:            4,      5,      4,      7,      8,      2,      2,      6,      9,      1,      3,      1, 
+sink_down: idx = 4
+in array2heap, array after sink_down at index 4.
+Array:  size: 12, capacity : 12
+indexes:           0,      1,      2,      3,      4,      5,      6,      7,      8,      9,     10,     11, 
+values:            4,      5,      4,      7,      8,      2,      2,      6,      9,      1,      3,      1, 
+sink_down: idx = 3
+sink_down: idx = 8
+in array2heap, array after sink_down at index 3.
+Array:  size: 12, capacity : 12
+indexes:           0,      1,      2,      3,      4,      5,      6,      7,      8,      9,     10,     11, 
+values:            4,      5,      4,      9,      8,      2,      2,      6,      7,      1,      3,      1, 
+sink_down: idx = 2
+in array2heap, array after sink_down at index 2.
+Array:  size: 12, capacity : 12
+indexes:           0,      1,      2,      3,      4,      5,      6,      7,      8,      9,     10,     11, 
+values:            4,      5,      4,      9,      8,      2,      2,      6,      7,      1,      3,      1, 
+sink_down: idx = 1
+sink_down: idx = 3
+sink_down: idx = 8
+in array2heap, array after sink_down at index 1.
+Array:  size: 12, capacity : 12
+indexes:           0,      1,      2,      3,      4,      5,      6,      7,      8,      9,     10,     11, 
+values:            4,      9,      4,      7,      8,      2,      2,      6,      5,      1,      3,      1, 
+sink_down: idx = 0
+sink_down: idx = 1
+sink_down: idx = 4
+in array2heap, array after sink_down at index 0.
+Array:  size: 12, capacity : 12
+indexes:           0,      1,      2,      3,      4,      5,      6,      7,      8,      9,     10,     11, 
+values:            9,      8,      4,      7,      4,      2,      2,      6,      5,      1,      3,      1, 
+sink_down: idx = 0
+sink_down: idx = 1
+sink_down: idx = 3
+sink_down: idx = 7
+Array:  size: 11, capacity : 12
+indexes:           0,      1,      2,      3,      4,      5,      6,      7,      8,      9,     10, 
+values:            8,      7,      4,      6,      4,      2,      2,      1,      5,      1,      3, 
+sink_down: idx = 0
+sink_down: idx = 1
+sink_down: idx = 3
+sink_down: idx = 8
+Array:  size: 10, capacity : 12
+indexes:           0,      1,      2,      3,      4,      5,      6,      7,      8,      9, 
+values:            7,      6,      4,      5,      4,      2,      2,      1,      3,      1, 
+sink_down: idx = 0
+sink_down: idx = 1
+sink_down: idx = 3
+sink_down: idx = 8
+Array:  size: 9, capacity : 12
+indexes:           0,      1,      2,      3,      4,      5,      6,      7,      8, 
+values:            6,      5,      4,      3,      4,      2,      2,      1,      1, 
+sink_down: idx = 0
+sink_down: idx = 1
+sink_down: idx = 4
+Array:  size: 8, capacity : 12
+indexes:           0,      1,      2,      3,      4,      5,      6,      7, 
+values:            5,      4,      4,      3,      1,      2,      2,      1, 
+sink_down: idx = 0
+sink_down: idx = 1
+sink_down: idx = 3
+Array:  size: 7, capacity : 12
+indexes:           0,      1,      2,      3,      4,      5,      6, 
+values:            4,      3,      4,      1,      1,      2,      2, 
+sink_down: idx = 0
+sink_down: idx = 2
+Array:  size: 6, capacity : 12
+indexes:           0,      1,      2,      3,      4,      5, 
+values:            4,      3,      2,      1,      1,      2, 
+sink_down: idx = 0
+sink_down: idx = 1
+Array:  size: 5, capacity : 12
+indexes:           0,      1,      2,      3,      4, 
+values:            3,      2,      2,      1,      1, 
+sink_down: idx = 0
+sink_down: idx = 1
+Array:  size: 4, capacity : 12
+indexes:           0,      1,      2,      3, 
+values:            2,      1,      2,      1, 
+sink_down: idx = 0
+sink_down: idx = 2
+Array:  size: 3, capacity : 12
+indexes:           0,      1,      2, 
+values:            2,      1,      1, 
+sink_down: idx = 0
+Array:  size: 2, capacity : 12
+indexes:           0,      1, 
+values:            1,      1, 
+sink_down: idx = 0
+Array:  size: 1, capacity : 12
+indexes:           0, 
+values:            1, 
+
+in main:
+Array:  size: 12, capacity : 12
+indexes:           0,      1,      2,      3,      4,      5,      6,      7,      8,      9,     10,     11, 
+values:            1,      1,      2,      2,      3,      4,      4,      5,      6,      7,      8,      9, 

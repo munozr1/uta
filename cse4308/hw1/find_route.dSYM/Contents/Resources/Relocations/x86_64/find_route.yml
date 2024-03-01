@@ -1,0 +1,11 @@
+---
+triple:          'x86_64-apple-darwin'
+binary-path:     find_route
+relocations:
+  - { offsetInCU: 0x26, offset: 0x26, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x0, symBinAddr: 0x100003680, symSize: 0x1A0 }
+  - { offsetInCU: 0x53, offset: 0x53, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x0, symBinAddr: 0x100003680, symSize: 0x1A0 }
+  - { offsetInCU: 0xDD, offset: 0xDD, size: 0x8, addend: 0x0, symName: _count_unique_cities, symObjAddr: 0x1A0, symBinAddr: 0x100003820, symSize: 0x1E0 }
+  - { offsetInCU: 0x17C, offset: 0x17C, size: 0x8, addend: 0x0, symName: _init_cities, symObjAddr: 0x380, symBinAddr: 0x100003A00, symSize: 0x180 }
+  - { offsetInCU: 0x1FE, offset: 0x1FE, size: 0x8, addend: 0x0, symName: _initGraph, symObjAddr: 0x500, symBinAddr: 0x100003B80, symSize: 0x240 }
+  - { offsetInCU: 0x2F6, offset: 0x2F6, size: 0x8, addend: 0x0, symName: _get_city_index, symObjAddr: 0x740, symBinAddr: 0x100003DC0, symSize: 0x72 }
+...

@@ -1,0 +1,78 @@
+This program will create a max-heap and perform operations on it based on data from a file.
+ 
+Operation: p
+print_on = 1
+
+in main:
+array is NULL
+
+Operation: l
+load array...
+
+in main:
+Array:  size: 6, capacity : 6
+indexes:           0,      1,      2,      3,      4,      5, 
+values:            2,      7,      4,      1,      8,      1, 
+
+Operation: w
+in array2heap, array BEFORE it gets turned into a heap :
+Array:  size: 6, capacity : 6
+indexes:           0,      1,      2,      3,      4,      5, 
+values:            2,      7,      4,      1,      8,      1, 
+sink_down: idx = 2
+in array2heap, array after sink_down at index 2.
+Array:  size: 6, capacity : 6
+indexes:           0,      1,      2,      3,      4,      5, 
+values:            2,      7,      4,      1,      8,      1, 
+sink_down: idx = 1
+sink_down: idx = 4
+in array2heap, array after sink_down at index 1.
+Array:  size: 6, capacity : 6
+indexes:           0,      1,      2,      3,      4,      5, 
+values:            2,      8,      4,      1,      7,      1, 
+sink_down: idx = 0
+sink_down: idx = 1
+sink_down: idx = 4
+in array2heap, array after sink_down at index 0.
+Array:  size: 6, capacity : 6
+indexes:           0,      1,      2,      3,      4,      5, 
+values:            8,      7,      4,      1,      2,      1, 
+sink_down: idx = 0
+sink_down: idx = 1
+sink_down: idx = 4
+sink_down: idx = 0
+sink_down: idx = 2
+swim_up: idx = 4
+removed: 8 and 7
+Array:  size: 5, capacity : 6
+indexes:           0,      1,      2,      3,      4, 
+values:            4,      2,      1,      1,      1, 
+sink_down: idx = 0
+sink_down: idx = 1
+sink_down: idx = 0
+swim_up: idx = 3
+swim_up: idx = 1
+swim_up: idx = 0
+removed: 4 and 2
+Array:  size: 4, capacity : 6
+indexes:           0,      1,      2,      3, 
+values:            2,      1,      1,      1, 
+sink_down: idx = 0
+sink_down: idx = 0
+swim_up: idx = 2
+removed: 2 and 1
+Array:  size: 3, capacity : 6
+indexes:           0,      1,      2, 
+values:            1,      1,      1, 
+sink_down: idx = 0
+sink_down: idx = 0
+removed: 1 and 1
+Array:  size: 1, capacity : 6
+indexes:           0, 
+values:            1, 
+Last stone weight is: 1
+
+in main:
+Array:  size: 6, capacity : 6
+indexes:           0,      1,      2,      3,      4,      5, 
+values:            1,      1,      1,      2,      4,      8, 

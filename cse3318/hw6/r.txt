@@ -1,0 +1,4 @@
+-1 -1
+0
+dmed.txt
+text1.txt

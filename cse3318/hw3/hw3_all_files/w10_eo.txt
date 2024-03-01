@@ -1,0 +1,23 @@
+This program will create a max-heap and perform operations on it based on data from a file.
+ 
+Operation: p
+print_on = 0
+
+in main:
+array is NULL
+
+Operation: l
+load array...
+
+in main:
+Array:  size: 6, capacity : 6
+indexes:           0,      1,      2,      3,      4,      5, 
+values:            2,      7,      4,      1,      8,      1, 
+
+Operation: w
+Last stone weight is: 1
+
+in main:
+Array:  size: 6, capacity : 6
+indexes:           0,      1,      2,      3,      4,      5, 
+values:            1,      1,      1,      2,      4,      8, 

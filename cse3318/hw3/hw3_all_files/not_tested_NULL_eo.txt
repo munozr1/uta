@@ -1,0 +1,15 @@
+This program will create a max-heap and perform operations on it based on data from a file.
+ 
+Operation: p
+print_on = 1
+
+in main:
+array is NULL
+
+Operation: s
+arr is NULL. Return.
+
+in main:
+array is NULL
+
+Operation: d

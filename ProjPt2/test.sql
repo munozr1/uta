@@ -1,0 +1,4 @@
+SELECT DISTINCT b.Name
+FROM BORROWER b
+JOIN BOOK_LOANS bl ON b.Card_No = bl.Card_No
+WHERE bl.Returned_Date IS NULL;

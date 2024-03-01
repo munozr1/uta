@@ -1,0 +1,79 @@
+This program will create a max-heap and perform operations on it based on data from a file.
+ 
+Operation: p
+print_on = 1
+
+in main:
+array is NULL
+
+Operation: l
+load array...
+
+in main:
+Array:  size: 5, capacity : 5
+indexes:           0,      1,      2,      3,      4, 
+values:           10,     40,     20,     50,     90, 
+
+Operation: h
+in array2heap, array BEFORE it gets turned into a heap :
+Array:  size: 5, capacity : 5
+indexes:           0,      1,      2,      3,      4, 
+values:           10,     40,     20,     50,     90, 
+sink_down: idx = 1
+sink_down: idx = 4
+in array2heap, array after sink_down at index 1.
+Array:  size: 5, capacity : 5
+indexes:           0,      1,      2,      3,      4, 
+values:           10,     90,     20,     50,     40, 
+sink_down: idx = 0
+sink_down: idx = 1
+sink_down: idx = 3
+in array2heap, array after sink_down at index 0.
+Array:  size: 5, capacity : 5
+indexes:           0,      1,      2,      3,      4, 
+values:           90,     50,     20,     10,     40, 
+
+in main:
+Array:  size: 5, capacity : 5
+indexes:           0,      1,      2,      3,      4, 
+values:           90,     50,     20,     10,     40, 
+
+Operation: r
+sink_down: idx = 0
+sink_down: idx = 1
+removed:     90
+
+in main:
+Array:  size: 4, capacity : 5
+indexes:           0,      1,      2,      3, 
+values:           50,     40,     20,     10, 
+
+Operation: a
+add:          13
+swim_up: idx = 4
+
+in main:
+Array:  size: 5, capacity : 5
+indexes:           0,      1,      2,      3,      4, 
+values:           50,     40,     20,     10,     13, 
+
+Operation: r
+sink_down: idx = 0
+sink_down: idx = 1
+removed:     50
+
+in main:
+Array:  size: 4, capacity : 5
+indexes:           0,      1,      2,      3, 
+values:           40,     13,     20,     10, 
+
+Operation: a
+add:          82
+swim_up: idx = 4
+swim_up: idx = 1
+swim_up: idx = 0
+
+in main:
+Array:  size: 5, capacity : 5
+indexes:           0,      1,      2,      3,      4, 
+values:           82,     40,     20,     10,     13, 

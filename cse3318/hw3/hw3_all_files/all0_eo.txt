@@ -1,0 +1,84 @@
+This program will create a max-heap and perform operations on it based on data from a file.
+ 
+Operation: p
+print_on = 0
+
+in main:
+array is NULL
+
+Operation: l
+load array...
+
+in main:
+Array:  size: 5, capacity : 5
+indexes:           0,      1,      2,      3,      4, 
+values:           10,     40,     20,     50,     90, 
+
+Operation: h
+
+in main:
+Array:  size: 5, capacity : 5
+indexes:           0,      1,      2,      3,      4, 
+values:           90,     50,     20,     10,     40, 
+
+Operation: i
+increase and swim up: item at index   2 becomes     95
+Array:  size: 5, capacity : 5
+indexes:           0,      1,      2,      3,      4, 
+values:           90,     50,     95,     10,     40, 
+
+in main:
+Array:  size: 5, capacity : 5
+indexes:           0,      1,      2,      3,      4, 
+values:           95,     50,     90,     10,     40, 
+
+Operation: d
+decrease and sink down: item at index   1 becomes     30
+Array:  size: 5, capacity : 5
+indexes:           0,      1,      2,      3,      4, 
+values:           95,     30,     90,     10,     40, 
+
+in main:
+Array:  size: 5, capacity : 5
+indexes:           0,      1,      2,      3,      4, 
+values:           95,     40,     90,     10,     30, 
+
+Operation: a
+add:          13
+FULL. Resizing...............................
+
+in main:
+Array:  size: 6, capacity : 10
+indexes:           0,      1,      2,      3,      4,      5, 
+values:           95,     40,     90,     10,     30,     13, 
+
+Operation: a
+add:         100
+
+in main:
+Array:  size: 7, capacity : 10
+indexes:           0,      1,      2,      3,      4,      5,      6, 
+values:          100,     40,     95,     10,     30,     13,     90, 
+
+Operation: r
+removed:    100
+
+in main:
+Array:  size: 6, capacity : 10
+indexes:           0,      1,      2,      3,      4,      5, 
+values:           95,     40,     90,     10,     30,     13, 
+
+Operation: s
+
+in main:
+Array:  size: 6, capacity : 10
+indexes:           0,      1,      2,      3,      4,      5, 
+values:           10,     13,     30,     40,     90,     95, 
+
+Operation: w
+Last stone weight is: 2
+
+in main:
+Array:  size: 6, capacity : 10
+indexes:           0,      1,      2,      3,      4,      5, 
+values:            2,      5,     10,     13,     40,     95, 

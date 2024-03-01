@@ -1,0 +1,39 @@
+This program will create a max-heap and perform operations on it based on data from a file.
+ 
+Operation: p
+print_on = 1
+
+in main:
+array is NULL
+
+Operation: l
+load array...
+
+in main:
+Array:  size: 10, capacity : 10
+indexes:           0,      1,      2,      3,      4,      5,      6,      7,      8,      9, 
+values:           13,      9,     11,      7,      5,     10,      3,      2,      4,      6, 
+
+Operation: d
+decrease and sink down: item at index   2 becomes     25
+Array:  size: 10, capacity : 10
+indexes:           0,      1,      2,      3,      4,      5,      6,      7,      8,      9, 
+values:           13,      9,     25,      7,      5,     10,      3,      2,      4,      6, 
+sink_down: idx = 2
+
+in main:
+Array:  size: 10, capacity : 10
+indexes:           0,      1,      2,      3,      4,      5,      6,      7,      8,      9, 
+values:           13,      9,     25,      7,      5,     10,      3,      2,      4,      6, 
+
+Operation: i
+increase and swim up: item at index   3 becomes      1
+Array:  size: 10, capacity : 10
+indexes:           0,      1,      2,      3,      4,      5,      6,      7,      8,      9, 
+values:           13,      9,     25,      1,      5,     10,      3,      2,      4,      6, 
+swim_up: idx = 3
+
+in main:
+Array:  size: 10, capacity : 10
+indexes:           0,      1,      2,      3,      4,      5,      6,      7,      8,      9, 
+values:           13,      9,     25,      1,      5,     10,      3,      2,      4,      6, 

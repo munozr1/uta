@@ -1,0 +1,123 @@
+Rodrigo Munoz
+ID: 1001847694
+
+
+
+
+1) Why should you be interested in learning about Lambda Calculus?
+
+    Lambda calculus is useful because it gives you a notation to be able to define
+    functions. People will find this interesting when exploring functional programming
+    in applications where reliability and readability are crucial, like in banks for 
+    example. Lambda calculus will allow you to re-wire your brain to think in a more 
+    functional way.
+
+2) How do you encode the concepts of TRUE,  FALSE, NOT, AND, OR?
+
+    True, False and NOT  as defined in the video: 
+         True: 𝜆𝑥𝑦.𝑥
+         False: 𝜆𝑥𝑦.𝑦 
+         NOT: 𝜆b.b False True
+
+    AND: λx.λy.x y x
+    OR: λx.λy.x x y
+
+3) What is important about the  Lambda Calculus expression called 'Y Combinator'?
+    Y-Combinator expression allows us to do recursion within a language that does not 
+    directly support recursion. We can use lambda calculus to define it withing that space.
+
+4) Write the Y Combinator expression in Lambda Calculus.
+    λf.(λx.f(xx)) (λx.f(xx))
+
+5) Where did the language 'Haskell' get its name?
+    Haskell is named after Haskell Curry
+ 
+6) In the video it was mentioned that Haskell was used to code what?
+    Facebook (Meta) spam filtering
+
+7) How is 'pattern matching' used?
+    Pattern matching is used to choose which function to apply. In the video the sum function uses pattern matching
+    to determine whether the given input is a single value or multiple values.
+
+8) Complete this sentence: "NP problems are hard to solve but easy to 'check' "
+
+9) What is the example of an NP problem used in the video?
+    Factoring
+
+10) What are the TV shows mentioned in the video?
+    Tron
+    The Simpsons
+    Futurama
+
+11) Floating point numbers are essentially what?
+    Scientific Notation in base 2
+ 
+12) Computers perform scientific notation in what base?
+    Base 2
+ 
+13) What is the problem with adding 1/3 + 1/3 + 1/3 using base 10 and ignoring recurring numbers?
+    ignoring the recurring numbers will cause you to lose precision. 1/3+1/3+1/3 = .9999 repeating
+ 
+14) What is 1/10 in base 2?
+    0.00011001100110011.. repeating
+
+15) What is the name of the function discussed in the video?
+    Ackermann's function
+
+16) Can Ackermann's function be coded using for or 'DO' loops?
+    NO
+
+17) What is the value of Ackermann(4,1)?
+    65533
+
+18) How many minutes will the machine in the video take to calculate Ackermann(4,2)
+    4 months
+
+19) The performance characteristic of Ackermann's function is described as what?
+    Super Exponential
+
+20) A loop nested in another loop has the performance characteristic of what?
+    N^2
+ 
+21) What was the limitation of Fortran mentioned in the video?
+    Fortran did not support user level recursion
+
+22) What real-world use needs complex recursion?
+    Compilers
+
+23) There was a need to have a language that could cope with what?
+    Bit looming / width of objects / Portability
+
+24) C is most powerful when considered as the classical what?
+    systems language
+25) What are the names of the two fields of the 'THING' structure?
+    item
+    next
+
+26) What is the advantage of the 'Triple Ref Technique'?
+    It allows you to peek ahead in a linked list by using a pointer to folow the pointer chain.
+
+27) What is the procedure  used in the video to compare the different structures?
+    allocate space for 125k elements in an array or linked list and then visit every one of those items and sum them up
+
+28) Why is the reverse array faster on the Atari?
+    The atari does not have a chache and therefore when going forward it must fetch the data every time.
+    When going backwards, the atari has the value precalculated already.
+
+29) What would be the goal of requiring people to be exposed to coding?
+   Give people perspective of what is required to acheive their goal. Understand the simplicity of the computer and 
+   the complexity of the functions it performs.
+
+30) List 3 or more of the different sort algorithms mentioned in the video
+    Bubble Sort
+    Quick Sort
+    Selection Sort
+
+31) What is the  'Decision Problem'?
+    Is there a test that will tell us if the inputs entail the output
+
+32) An example of an abstraction used in the video is, "A transistor is a type of switch that can be open or closed"?
+
+33) Which video was the most interesting or your favorite?
+    I enjoyed "Functional Programming and Haskell" because I am fairly new to CS compared to others in the industry and 
+    learning different ways of programming the same thing is very interesting to me. I also now really want to learn Haskell :) 
