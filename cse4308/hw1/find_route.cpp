@@ -12,7 +12,10 @@ void print_info(struct Info &info);
 void init_cities(std::string filename, std::vector<std::string> &cities);
 void alloc_graph(std::vector<std::string> &cities, int ***adjacency_matrix);
 void init_graph(std::string filename, std::vector<std::string> &cities, int **adjacency_matrix);
+void init_heuristic(std::string filename, std::vector<std::string> &cities, std::vector<int> &heuristic);
 std::vector<std::string> uninformed_search(int **adjacency_matrix, std::vector<std::string> &cities, std::string start, std::string goal, struct Info &info);
+std::vector<std::string> informed_search(int **adjacency_matrix, std::vector<std::string> &cities, std::string start, std::string goal, struct Info &info, std::vector<int> &heuristic);
+
 
 struct Info {
     int nodes_popped;
@@ -24,6 +27,7 @@ struct Info {
 struct Node {
     std::string city;
     int distance;
+    int heuristic;
     std::vector<struct Node> path;
     // Operator overload for the priority queue (not strictly needed for BFS)
     bool operator<(const Node& other) const {
@@ -38,12 +42,20 @@ class Compare {
       }
 };
 
+class Compare_h{
+    public:
+        bool operator()(const Node& a, const Node& b){
+            return a.distance + a.heuristic > b.distance + b.heuristic;
+        }
+};
+
 int main(int argc, char *argv[]){
     std::string input_filename;
     std::string origin_city;
     std::string destination_city;
     std::string heuristic_file;
     std::vector<std::string> cities;
+    std::vector<int> heuristic;
     int **adjacency_matrix = nullptr;
     std::vector<std::string> path;
     struct Info info = {0, 0, 0, 0};
@@ -76,6 +88,43 @@ int main(int argc, char *argv[]){
                 std::cout << "No path exists from " << origin_city << " to " << destination_city << std::endl;
             }
             break;
+            case 5: // informed search
+            input_filename = argv[1];
+            origin_city = argv[2];
+            destination_city = argv[3];
+            heuristic_file = argv[4];
+            init_cities(input_filename, cities);
+            alloc_graph(cities, &adjacency_matrix);
+            init_graph(input_filename, cities, adjacency_matrix);
+            //make sure the heuristic vector is the same size as the cities vector and initialize it to 0
+            heuristic.resize(cities.size(), 0);
+            init_heuristic(heuristic_file, cities, heuristic);
+
+            //print graph
+            for(int i = 0; i < cities.size(); i++){
+                for(int j = 0; j < cities.size(); j++){
+                    std::cout << adjacency_matrix[i][j] << " ";
+                }
+                std::cout << std::endl;
+            }
+            //print heuristic
+            for(int i = 0; i < heuristic.size(); i++){
+                std::cout << heuristic[i] << " ";
+            }
+            std::cout << std::endl;
+            path = informed_search(adjacency_matrix, cities, origin_city, destination_city, info, heuristic);
+            print_info(info);
+            if (!path.empty()) {
+                for (const std::string& city : path) {
+                    std::cout << city;
+                    if (city != path.back()) {
+                        std::cout << " -> ";
+                    }
+                }
+            } else {
+                std::cout << "No path exists from " << origin_city << " to " << destination_city << std::endl;
+            }
+            break;
         default:
             std::cout << "Usage: ./find_route <input_filename> <origin_city> <destination_city> <heuristic_file>" << std::endl;
             break;
@@ -88,17 +137,22 @@ void init_cities(std::string filename, std::vector<std::string> &cities){
     std::ifstream file(filename);
     std::string line;
     while(std::getline(file, line)){
-        //parse line by space
-        std::string city = line.substr(0, line.find(" "));
-        // check if city == "END"
-        if(city == "END"){
-            break;
+        if(line == "END OF INPUT") break; // Stop if end of file is reached
+        std::istringstream iss(line);
+        std::string city1, city2;
+        int distance;
+        iss >> city1 >> city2 >> distance;
+        if(city1 == "END" || city2 == "OF" ) break; // Stop if end of file is reached
+        if(std::find(cities.begin(), cities.end(), city1) == cities.end()){
+            cities.push_back(city1);
         }
-        //check if city is already in vector
-        if(std::find(cities.begin(), cities.end(), city) != cities.end()){
-            continue;
+        if(std::find(cities.begin(), cities.end(), city2) == cities.end()){
+            cities.push_back(city2);
         }
-        cities.push_back(city);
+    }
+    //print cities
+    for(int i = 0; i < cities.size(); i++){
+        std::cout << cities[i] << " "<< std::endl;
     }
     file.close();
 }
@@ -151,6 +205,7 @@ std::vector<std::string> uninformed_search(int **adjacency_matrix, std::vector<s
 
     // Add the start node to the fringe
     struct Node start_node = {start, 0};
+    start_node.path.push_back(start_node);
     fringe.push(start_node);
     // find the index of the start node in the cities vector
     int index = std::distance(cities.begin(), std::find(cities.begin(), cities.end(), start));
@@ -173,17 +228,12 @@ std::vector<std::string> uninformed_search(int **adjacency_matrix, std::vector<s
         // check if the current node is the goal
         if(current.city == goal){
             std::vector<std::string> path;
-            // std::string current_city = goal;
-            // while(current_city != start){
-            //     path.push_back(current_city);
-            //     current_city = parent[current_city];
-            // }
 
             // add the current nodes path to the path vector using a for loop
             for(int i = 0; i < current.path.size(); i++){
                 path.push_back(current.path[i].city);
             }
-            std::reverse(path.begin(), path.end());
+
             info.distance = current.distance;
             return path;
         }
@@ -201,7 +251,13 @@ std::vector<std::string> uninformed_search(int **adjacency_matrix, std::vector<s
                     // add the neighbor to the fringe
                     struct Node neighbor = {cities[i], current.distance + adjacency_matrix[index][i]};
                     // add the current nodes path to the neighbors path
-                    neighbor.path = current.path;
+                    std::vector<struct Node> temp;
+                    // add the current nodes path to the temp vector using a for loop
+                    for(int i = 0; i < current.path.size(); i++){
+                        temp.push_back(current.path[i]);
+                    }
+                    temp.push_back(neighbor);
+                    neighbor.path = temp;
                     fringe.push(neighbor);
                     info.nodes_generated++;
                     parent[cities[i]] = current.city;
@@ -216,9 +272,106 @@ std::vector<std::string> uninformed_search(int **adjacency_matrix, std::vector<s
     return {};
 }
 
+
 void print_info(struct Info &info) {
     std::cout << "nodes_popped: " << info.nodes_popped << std::endl;
     std::cout << "nodes_expanded: " << info.nodes_expanded << std::endl;
     std::cout << "nodes_generated: " << info.nodes_generated << std::endl;
-    std::cout << "distance: " << info.distance << std::endl;
+    if(info.distance == 0) std::cout << "distance: infinity" << std::endl;
+    else
+        std::cout << "distance: " << info.distance << std::endl;
+}
+
+void init_heuristic(std::string filename, std::vector<std::string> &cities, std::vector<int> &heuristic){
+    std::ifstream
+    file(filename);
+    std::string line;
+    while(std::getline(file, line)){
+        if(line == "END OF INPUT") break; // Stop if end of file is reached
+        std::istringstream iss(line);
+        std::string city;
+        int h;
+        iss >> city >> h;
+        if (city == "END" || city == "OF") break; // Stop if end of file is reached
+        if(city == "END") break; // Stop if end of file is reached
+
+        // Find the index of the city in the cities vector and add the heuristic to the heuristic vector at the same index
+        heuristic[std::distance(cities.begin(), std::find(cities.begin(), cities.end(), city))] = h;
+    }
+    file.close();
+}
+
+std::vector<std::string> informed_search(int **adjacency_matrix, std::vector<std::string> &cities, std::string start, std::string goal, struct Info &info, std::vector<int> &heuristic){
+    std::unordered_set<std::string> closed;
+    std::priority_queue<struct Node, std::vector<struct Node>, Compare_h> fringe;
+    std::unordered_map<std::string, std::string> parent;
+
+    // Add the start node to the fringe
+    struct Node start_node = {start, 0};
+    start_node.path.push_back(start_node);
+    fringe.push(start_node);
+    // find the index of the start node in the cities vector
+    int index = std::distance(cities.begin(), std::find(cities.begin(), cities.end(), start));
+
+    while(!fringe.empty()){
+        //print the entire fringe
+        // pop from the fringe and add to closed
+        struct Node current = fringe.top();
+        fringe.pop();
+        closed.insert(current.city);
+        info.nodes_popped++;
+        std::cout << "Current node: " << current.city << " | Distance: " << current.distance << " | Fringe: ";
+        std::priority_queue<struct Node, std::vector<struct Node>, Compare_h> temp = fringe;
+        while(!temp.empty()){
+            std::cout << temp.top().city << " " << temp.top().distance << " | ";
+            temp.pop();
+        }
+        std::cout << std::endl;
+
+        // check if the current node is the goal
+        if(current.city == goal){
+            std::vector<std::string> path;
+
+            // add the current nodes path to the path vector using a for loop
+            for(int i = 0; i < current.path.size(); i++){
+                path.push_back(current.path[i].city);
+            }
+
+            info.distance = current.distance;
+            return path;
+        }
+
+        // find the index of the current node in the cities vector
+        int index = std::distance(cities.begin(), std::find(cities.begin(), cities.end(), current.city));
+
+        // iterate through the neighbors of the current node
+        for(int i = 0; i < cities.size(); i++){
+            if(adjacency_matrix[index][i] != 0){
+                //print the neighbors
+                std::cout <<  cities[i] << " " << adjacency_matrix[index][i] <<" | ";
+                // check if the neighbor is in the closed set
+                if(closed.find(cities[i]) == closed.end()){
+                    // add the neighbor to the fringe
+                    struct Node neighbor = {cities[i], current.distance + adjacency_matrix[index][i]};
+                    // add the current nodes path to the neighbors path
+                    std::vector<struct Node> temp;
+                    // add the current nodes path to the temp vector using a for loop
+                    for(int i = 0; i < current.path.size(); i++){
+                        temp.push_back(current.path[i]);
+                    }
+                    temp.push_back(neighbor);
+                    neighbor.path = temp;
+                    neighbor.heuristic = heuristic[i];
+                    fringe.push(neighbor);
+                    info.nodes_generated++;
+                    parent[cities[i]] = current.city;
+                }
+            }
+        }
+        std::cout <<std::endl;
+
+        info.nodes_expanded++;
+    }
+
+    return {};
 }
