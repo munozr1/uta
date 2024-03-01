@@ -8,11 +8,11 @@
 #include <queue>
 #include <unordered_map>
 
+void print_info(struct Info &info);
 void init_cities(std::string filename, std::vector<std::string> &cities);
 void alloc_graph(std::vector<std::string> &cities, int ***adjacency_matrix);
 void init_graph(std::string filename, std::vector<std::string> &cities, int **adjacency_matrix);
 std::vector<std::string> uninformed_search(int **adjacency_matrix, std::vector<std::string> &cities, std::string start, std::string goal, struct Info &info);
-
 
 struct Info {
     int nodes_popped;
@@ -24,23 +24,18 @@ struct Info {
 struct Node {
     std::string city;
     int distance;
-    int heuristic;
-    bool operator==(const Node& other) const {
-        return city == other.city;
+    std::vector<struct Node> path;
+    // Operator overload for the priority queue (not strictly needed for BFS)
+    bool operator<(const Node& other) const {
+    return distance > other.distance;  // Prioritize by lower distance
     }
 };
-
-
 
 class Compare {
-public:
-    bool operator()(const Node& n1, const Node& n2) {
-        return n1.distance > n2.distance;
-    }
-};
-
-struct NodeComparator {
-
+    public:
+       bool operator()(const Node& a, const Node& b){
+        return a.distance > b.distance;
+      }
 };
 
 int main(int argc, char *argv[]){
@@ -61,7 +56,15 @@ int main(int argc, char *argv[]){
             init_cities(input_filename, cities);
             alloc_graph(cities, &adjacency_matrix);
             init_graph(input_filename, cities, adjacency_matrix);
+            //print graph
+            for(int i = 0; i < cities.size(); i++){
+                for(int j = 0; j < cities.size(); j++){
+                    std::cout << adjacency_matrix[i][j] << " ";
+                }
+                std::cout << std::endl;
+            }
             path = uninformed_search(adjacency_matrix, cities, origin_city, destination_city, info);
+            print_info(info);
             if (!path.empty()) {
                 for (const std::string& city : path) {
                     std::cout << city;
@@ -69,11 +72,6 @@ int main(int argc, char *argv[]){
                         std::cout << " -> ";
                     }
                 }
-                std::cout << std::endl;
-                std::cout<< "nodes_popped: " << info.nodes_popped << std::endl;
-                std::cout<< "nodes_expanded: " << info.nodes_expanded << std::endl;
-                std::cout << "nodes_generated: " << info.nodes_generated << std::endl;
-                std::cout << "distance: " << info.distance << std::endl;
             } else {
                 std::cout << "No path exists from " << origin_city << " to " << destination_city << std::endl;
             }
@@ -125,6 +123,10 @@ void init_graph(std::string filename, std::vector<std::string> &cities, int **ad
         std::string city1, city2;
         int distance;
 
+        // Parse the line
+        iss >> city1 >> city2 >> distance;
+
+
 
         // Find the indices of the cities in the cities vector
         auto it1 = std::find(cities.begin(), cities.end(), city1);
@@ -142,47 +144,81 @@ void init_graph(std::string filename, std::vector<std::string> &cities, int **ad
     file.close();
 }
 
-
 std::vector<std::string> uninformed_search(int **adjacency_matrix, std::vector<std::string> &cities, std::string start, std::string goal, struct Info &info) {
-    std::unordered_set<struct Node> closed;
-    std::priority_queue<struct Node, std::vector<struct Node>,Compare> fringe;
+    std::unordered_set<std::string> closed;
+    std::priority_queue<struct Node, std::vector<struct Node>, Compare> fringe;
+    std::unordered_map<std::string, std::string> parent;
 
-    struct Node start_node = {start, 0, 0};
-
+    // Add the start node to the fringe
+    struct Node start_node = {start, 0};
     fringe.push(start_node);
+    // find the index of the start node in the cities vector
+    int index = std::distance(cities.begin(), std::find(cities.begin(), cities.end(), start));
 
-    while (true){
-        // check if fringe is empty
-        if (fringe.empty()) return std::vector<std::string>();
-
-        struct Node current_node = fringe.top();
+    while(!fringe.empty()){
+        //print the entire fringe
+        // pop from the fringe and add to closed
+        struct Node current = fringe.top();
         fringe.pop();
+        closed.insert(current.city);
         info.nodes_popped++;
+        std::cout << "Current node: " << current.city << " | Distance: " << current.distance << " | Fringe: ";
+        std::priority_queue<struct Node, std::vector<struct Node>, Compare> temp = fringe;
+        while(!temp.empty()){
+            std::cout << temp.top().city << " " << temp.top().distance << " | ";
+            temp.pop();
+        }
+        std::cout << std::endl;
 
-        if (closed.find(current_node) != closed.end()) continue; // Skip if node is already explored
-
-        closed.insert(current_node); // Add the current node to the closed set
-        info.nodes_expanded++;
-
-        if (current_node.city == goal) {
+        // check if the current node is the goal
+        if(current.city == goal){
             std::vector<std::string> path;
-            // Trace back the path here if necessary
-            // For now, we just return the goal city
-            path.push_back(goal);
+            // std::string current_city = goal;
+            // while(current_city != start){
+            //     path.push_back(current_city);
+            //     current_city = parent[current_city];
+            // }
+
+            // add the current nodes path to the path vector using a for loop
+            for(int i = 0; i < current.path.size(); i++){
+                path.push_back(current.path[i].city);
+            }
+            std::reverse(path.begin(), path.end());
+            info.distance = current.distance;
             return path;
         }
 
-        // Get the index of the current city
-        auto it = std::find(cities.begin(), cities.end(), current_node.city);
-        int city_index = std::distance(cities.begin(), it);
+        // find the index of the current node in the cities vector
+        int index = std::distance(cities.begin(), std::find(cities.begin(), cities.end(), current.city));
 
-        // Add all successors of the current node to the fringe
-        for (int i = 0; i < cities.size(); ++i) {
-            if (adjacency_matrix[city_index][i] > 0) { // Check if there is a connection
-                Node successor = {cities[i], current_node.distance + adjacency_matrix[city_index][i], 0};
-                fringe.push(successor);
-                info.nodes_generated++;
+        // iterate through the neighbors of the current node
+        for(int i = 0; i < cities.size(); i++){
+            if(adjacency_matrix[index][i] != 0){
+                //print the neighbors
+                std::cout <<  cities[i] << " " << adjacency_matrix[index][i] <<" | ";
+                // check if the neighbor is in the closed set
+                if(closed.find(cities[i]) == closed.end()){
+                    // add the neighbor to the fringe
+                    struct Node neighbor = {cities[i], current.distance + adjacency_matrix[index][i]};
+                    // add the current nodes path to the neighbors path
+                    neighbor.path = current.path;
+                    fringe.push(neighbor);
+                    info.nodes_generated++;
+                    parent[cities[i]] = current.city;
+                }
             }
         }
+        std::cout <<std::endl;
+
+        info.nodes_expanded++;
     }
+
+    return {};
+}
+
+void print_info(struct Info &info) {
+    std::cout << "nodes_popped: " << info.nodes_popped << std::endl;
+    std::cout << "nodes_expanded: " << info.nodes_expanded << std::endl;
+    std::cout << "nodes_generated: " << info.nodes_generated << std::endl;
+    std::cout << "distance: " << info.distance << std::endl;
 }

@@ -1,0 +1,10 @@
+{
+  "files.associations": {
+    "*.v": "verilog",
+    "*.as": "csharp",
+    "*.html": "html",
+    "*.cpp": "cpp",
+    "vector": "cpp",
+    "__bit_reference": "cpp"
+  }
+}
